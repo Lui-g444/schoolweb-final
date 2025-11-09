@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You – NerdFord</title>
+  <link rel="stylesheet" href="css/index.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fefefe;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      animation: fadeIn 1.5s ease-in;
+      overflow: hidden;
+    }
+
+    .thankYouBox {
+      text-align: center;
+      max-width: 500px;
+      padding: 40px;
+      border-radius: 12px;
+      background: linear-gradient(to right, #fdfbfb, #ebedee);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      animation: slideUp 1s ease-out;
+      position: relative;
+      z-index: 1;
+    }
+
+    .thankYouBox h1 {
+      font-size: 2.2rem;
+      color: #0077cc;
+      margin-bottom: 10px;
+    }
+
+    .thankYouBox p {
+      font-size: 1.1rem;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .thankYouBox small {
+      color: #666;
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .thankYouBox a {
+      display: inline-block;
+      margin: 8px;
+      padding: 10px 16px;
+      border-radius: 6px;
+      background-color: #0077cc;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.3s ease;
+    }
+
+    .thankYouBox a:hover {
+      background-color: #005fa3;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Confetti */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #f39c12;
+      animation: fall 3s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-100px) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="thankYouBox">
+    <h1>Thank you, <span id="studentName">Student</span>!</h1>
+    <p>Your application has been received. We’ll be in touch soon.</p>
+    <small>Redirecting you in <span id="countdown">5</span> seconds…</small>
+
+    <a href="status.html">View Application Status</a>
+  </div>
+
+  <!-- Confetti container -->
+  <script>
+    // Personalize name
+    const name = localStorage.getItem('studentName');
+    if (name) {
+      document.getElementById('studentName').textContent = name;
+    }
+
+    // Countdown redirect
+    let seconds = 5;
+    const countdown = document.getElementById('countdown');
+    const interval = setInterval(() => {
+      seconds--;
+      countdown.textContent = seconds;
+      if (seconds === 0) {
+        clearInterval(interval);
+        window.location.href = 'index.html';
+      }
+    }, 1000);
+
+    // Confetti burst
+    for (let i = 0; i < 50; i++) {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.backgroundColor = ['#f39c12', '#e74c3c', '#2ecc71', '#3498db'][i % 4];
+      confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+      document.body.appendChild(confetti);
+    }
+
+    // Social share
+    const shareBtn = document.getElementById('shareBtn');
+    shareBtn.href = `https://www.facebook.com/sharer/sharer.php?u=https://nerdford.ph&quote=I just applied to NerdFord! Join me on this journey.`;
+  </script>
+</body>
+</html>

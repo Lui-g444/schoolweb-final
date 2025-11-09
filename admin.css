@@ -1,0 +1,102 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #fefefe;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #0077cc;
+  margin-bottom: 20px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.controls input,
+.controls select {
+  padding: 8px 12px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background-color: #f0f0f0;
+}
+
+select.statusDropdown {
+  padding: 6px;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  th {
+    position: sticky;
+    top: 0;
+    background: #f0f0f0;
+  }
+
+  td {
+    margin-bottom: 10px;
+  }
+}
+#loginScreen {
+  max-width: 360px;
+  margin: 100px auto;
+  padding: 30px;
+  background: linear-gradient(to right, #fdfbfb, #ebedee);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+#loginScreen h2 {
+  color: #0077cc;
+  margin-bottom: 20px;
+}
+
+#loginScreen input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+#loginScreen button {
+  padding: 10px 16px;
+  border-radius: 6px;
+  background-color: #0077cc;
+  color: #fff;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+#loginScreen button:hover {
+  background-color: #005fa3;
+}

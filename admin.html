@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard – NerdFord</title>
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+  <!-- 🔐 Login Screen -->
+<div id="loginScreen">
+  <h2>Admin Login</h2>
+  <input type="email" id="adminEmail" placeholder="Email" />
+  <input type="password" id="adminPassword" placeholder="Password" />
+  <button onclick="login()">Login</button>
+</div>
+
+<!-- 📋 Dashboard (hidden until login) -->
+<div id="dashboard" style="display:none;">
+  <div style="text-align:right; margin-bottom:10px;">
+    <button id="logoutBtn">Logout</button>
+  </div>
+
+  <h1>Admin Dashboard</h1>
+
+  <div id="analytics" style="text-align:center; margin-bottom:10px;"></div>
+
+  <div class="controls">
+    <input type="text" id="searchInput" placeholder="Search by name or email" />
+    <select id="programFilter">
+      <option value="">All Programs</option>
+      <option value="BSCS">BSCS</option>
+      <option value="BSIT">BSIT</option>
+      <option value="BSIS">BSIS</option>
+    </select>
+    <select id="statusFilter">
+      <option value="">All Statuses</option>
+      <option value="Pending">Pending</option>
+      <option value="Under Review">Under Review</option>
+      <option value="Accepted">Accepted</option>
+      <option value="Rejected">Rejected</option>
+    </select>
+    <button id="exportBtn">📤 Export to CSV</button>
+  </div>
+
+  <table id="applicantsTable">
+    <thead>
+      <tr>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Program</th>
+        <th>Status</th>
+        <th>Message</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</div>
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>

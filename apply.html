@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apply to NerdFord</title>
+  <link rel="stylesheet" href="css/index.css" >
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fefefe;
+      margin: 0;
+      padding: 0;
+    }
+
+    .applyHero {
+      padding: 80px 20px 40px;
+      text-align: center;
+      background: linear-gradient(to right, #fdfbfb, #ebedee);
+    }
+
+    .applyHero h1 {
+      font-size: 2.8rem;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .applyHero p {
+      font-size: 1.2rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .formSection {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input, textarea {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 12px;
+      background-color: #0077cc;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #005fa3;
+    }
+
+    .backLink {
+      display: block;
+      text-align: center;
+      margin-top: 30px;
+      color: #0077cc;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .backLink:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="applyHero">
+    <h1>Student Application Form</h1>
+    <p>Welcome to NerdFord’s online application portal. Fill out your details below and take the first step toward your academic journey.</p>
+  </section>
+
+  <section class="formSection">
+<form id="registrationForm"> 
+  <input type="text" name="firstName" placeholder="First Name" autocomplete="given-name" required
+  pattern="^[A-Za-z]+$"
+  title="First name must contain letters only." />
+<input type="text" name="lastName" placeholder="Last Name" autocomplete="family-name" required
+  pattern="^[A-Za-z]+$"
+  title="Last name must contain letters only." />
+<input type="email" name="email" placeholder="Email Address" autocomplete="email" required
+  title="Please enter a valid email address." />
+<select name="program" required>
+  <option value="" disabled selected>Select your program</option>
+  <option value="Computer Science">Computer Science</option>
+  <option value="Information Technology">Information Technology</option>
+  <option value="Business Administration">Business Administration</option>
+  <option value="Education">Education</option>
+  <option value="Nursing">Nursing</option>
+  <option value="Engineering">Engineering</option>
+  <option value="Hospitality Management">Hospitality Management</option>
+</select>
+<textarea name="message" placeholder="Message (optional)" autocomplete="off"></textarea>  <button type="submit">Submit Application</button>
+</form>
+    <a href="index.html#registration" class="backLink">← Back to Registration Overview</a>
+  </section>
+
+<script type="module" src="./js/register.js"></script>
+</body>
+</html>

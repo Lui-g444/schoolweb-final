@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Application Status – NerdFord</title>
+  <link rel="stylesheet" href="css/index.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fefefe;
+      margin: 0;
+      padding: 20px;
+      animation: fadeIn 1.2s ease-in;
+    }
+
+    .statusBox {
+      max-width: 500px;
+      margin: auto;
+      padding: 40px;
+      border-radius: 12px;
+      background: linear-gradient(to right, #fdfbfb, #ebedee);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      animation: slideUp 1s ease-out;
+      text-align: center;
+    }
+
+    .statusBox h1 {
+      font-size: 2rem;
+      color: #0077cc;
+      margin-bottom: 10px;
+    }
+
+    .statusBox p {
+      font-size: 1.1rem;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .statusBox small {
+      color: #666;
+    }
+
+    .statusBox input,
+    .statusBox textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 12px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .statusBox button {
+      margin-top: 16px;
+      padding: 10px 16px;
+      border-radius: 6px;
+      background-color: #0077cc;
+      color: #fff;
+      border: none;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .statusBox button:hover {
+      background-color: #005fa3;
+    }
+
+    .progressBar {
+      margin: 20px auto;
+      height: 10px;
+      width: 100%;
+      background: #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .progressBarFill {
+      height: 100%;
+      width: 0%;
+      background: #0077cc;
+      transition: width 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @media (max-width: 600px) {
+      .statusBox {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="statusBox">
+    <h1>Hello, <span id="studentName">Student</span>!</h1>
+    <p>Your application status: <strong id="statusText">Loading…</strong></p>
+
+    <div class="progressBar">
+      <div class="progressBarFill" id="progressFill"></div>
+    </div>
+
+    <small>You can update your contact info below:</small>
+    <input type="email" id="updateEmail" placeholder="Update your email" />
+    <textarea id="updateMessage" rows="3" placeholder="Update your message"></textarea>
+    <button onclick="submitUpdate()">Submit Update</button>
+  </div>
+
+  <script type="module">
+    import { supabase } from './supabaseClient.js';
+
+    const name = localStorage.getItem('studentName');
+    const studentNameEl = document.getElementById('studentName');
+    const statusTextEl = document.getElementById('statusText');
+    const progressFill = document.getElementById('progressFill');
+
+    if (name) {
+      studentNameEl.textContent = name;
+
+      // Fetch status from Supabase
+      const fetchStatus = async () => {
+        const { data, error } = await supabase
+          .from('students')
+          .select('status')
+          .eq('full_name', name)
+          .single();
+
+        if (error || !data) {
+          statusTextEl.textContent = 'Not found';
+          progressFill.style.width = '0%';
+        } else {
+          const status = data.status || 'Pending';
+          statusTextEl.textContent = status;
+
+          // Progress bar logic
+          const progressMap = {
+            'Pending': '25%',
+            'Under Review': '50%',
+            'Accepted': '100%',
+            'Rejected': '100%'
+          };
+          progressFill.style.width = progressMap[status] || '25%';
+        }
+      };
+
+      fetchStatus();
+    }
+
+    // Submit update
+    window.submitUpdate = async () => {
+      const email = document.getElementById('updateEmail').value.trim();
+      const message = document.getElementById('updateMessage').value.trim();
+
+      if (!email && !message) {
+        alert('Please enter something to update.');
+        return;
+      }
+
+      const updates = {};
+      if (email) updates.email = email;
+      if (message) updates.message = message;
+
+      const { error } = await supabase
+        .from('students')
+        .update(updates)
+        .eq('full_name', name);
+
+      if (error) {
+        alert('Update failed: ' + error.message);
+      } else {
+        alert('Your info has been updated!');
+      }
+    };
+  </script>
+</body>
+</html>
